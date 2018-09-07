@@ -17,13 +17,13 @@ gulp.task("style",function(){
 // 处理图片移动的任务
 gulp.task("image",function(){
 	gulp.src("src/images/*.*")
-		.dest("dist/images/");
+		.pipe(gulp.dest("dist/images/"));
 });
 // 处理js压缩混淆
 gulp.task("script",function(){
 	gulp.src("src/scripts/*.js")
 		.pipe(uglify())
-		.pipe(gulp.dest("dist/styles/"))
+		.pipe(gulp.dest("dist/scripts/"))
 		.pipe(browserSync.reload({
 			stream: true
 		}));
@@ -41,7 +41,7 @@ gulp.task("html",function(){
 	        minifyJS: true,//压缩页面JS
 	        minifyCSS: true//压缩页面CSS
 		}))
-		.pipe(gulp.dest("dist/styles/"))
+		.pipe(gulp.dest("dist/"))
 		.pipe(browserSync.reload({
 			stream: true
 		}));
@@ -55,9 +55,9 @@ gulp.task("serve",function(){
 	},function(err,bs){
 
 	});
-	gulp.watch("src/styles/*.less","style");
-	gulp.watch("src/images/*.*","image");
-	gulp.watch("src/scripts/*.js","script");
-	gulp.watch("src/*.html","html");
+	gulp.watch("src/styles/*.less",["style"]);
+	gulp.watch("src/images/*.*",["image"]);
+	gulp.watch("src/scripts/*.js",["script"]);
+	gulp.watch("src/*.html",["html"]);
 	console.log("自动化服务已经开启...");
 });
